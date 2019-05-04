@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+    <VBox prefHeight="700.0" prefWidth="1000.0">
+        <MenuBar fx:id="menuBar">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" text="Close"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+                <MenuItem mnemonicParsing="false" text="Delete"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About"/>
+            </Menu>
+        </MenuBar>
+        <AnchorPane prefHeight="675.0" prefWidth="1000.0">
+            <HBox prefHeight="665.0" prefWidth="1000.0">
+                <VBox fx:id="leftSideBarVBox" prefHeight="665.0" prefWidth="200.0">
+                    <Button fx:id="LSB_button2" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
+                            text="Button" textAlignment="CENTER">
+                        <padding>
+                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
+                        </padding>
+                        <VBox.margin>
+                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <Button fx:id="LSB_button3" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
+                            text="Button" textAlignment="CENTER">
+                        <padding>
+                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
+                        </padding>
+                        <VBox.margin>
+                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <Button fx:id="LSB_button4" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
+                            text="Button" textAlignment="CENTER">
+                        <padding>
+                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
+                        </padding>
+                        <VBox.margin>
+                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <Button fx:id="LSB_button21" layoutX="60.0" layoutY="30.0" mnemonicParsing="false"
+                            text="Button" textAlignment="CENTER">
+                        <padding>
+                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
+                        </padding>
+                        <VBox.margin>
+                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
+                        </VBox.margin>
+                    </Button>
+                </VBox>
+                <Line endX="-100.0" endY="600.0" startX="-100.0" startY="100.0">
+                    <HBox.margin>
+                        <Insets top="50.0"/>
+                    </HBox.margin>
+                </Line>
+                <AnchorPane fx:id="appCenterPane" prefHeight="665.0" prefWidth="804.0"/>
+            </HBox>
+        </AnchorPane>
+    </VBox>
+</AnchorPane>
