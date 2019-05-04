@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +20,14 @@ public class SignInFormController {
 
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
         System.out.println("Submit button pressed");
-        System.out.println("Sign In Successful");
-        submitButton.getScene().getWindow().hide();
+        UserService userService = UserService.getUserServiceSingleton();
+        boolean isValidData = userService.userDataValidation(nameField.getText(), passwordField.getText());
+        if(isValidData) {
+            System.out.println("Sign In Successful");
+            submitButton.getScene().getWindow().hide();
+        } else {
+            System.out.println("Wrong Sign In");
+        }
+
     }
 }

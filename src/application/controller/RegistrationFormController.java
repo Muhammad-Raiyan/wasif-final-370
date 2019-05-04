@@ -21,11 +21,16 @@ public class RegistrationFormController {
     @FXML
     public Button submitButton;
 
+
     @FXML
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
         System.out.println("Submit Button Pressed");
-        boolean isValidData = UserService.userDataValidation(nameField.getText(), emailField.getText(), passwordField.getText());
+        UserService userService = UserService.getUserServiceSingleton();
+        boolean isValidData = userService.userDataValidation(nameField.getText(), emailField.getText(), passwordField.getText());
         if(!isValidData) return;
+        else {
+            userService.addNewUser(nameField.getText(), emailField.getText(), passwordField.getText());
+        }
 
         System.out.println("registration Successful");
         submitButton.getScene().getWindow().hide();

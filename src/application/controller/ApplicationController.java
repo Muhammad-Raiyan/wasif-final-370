@@ -17,11 +17,12 @@ public class ApplicationController {
     @FXML
     public Button LSB_registerButton;
     @FXML
-    public Button LSB_signInInButton;
+    public Button LSB_signInButton;
 
     private static  boolean isUserSignedIn;
     public static  String REGISTRATION_FORM_PATH = "/resource/view/RegistrationForm.fxml";
     public static  String SIGNIN_FORM_PATH = "/resource/view/SignInForm.fxml";
+    public static  String SIGNIN_BUTTON_TEXT;
 
     public ApplicationController() {
         System.out.println("Constructor Called");
@@ -31,6 +32,7 @@ public class ApplicationController {
     @FXML
     public void initialize(){
         System.out.println("Initialized called");
+        SIGNIN_BUTTON_TEXT = LSB_signInButton.getText();
         LSB_signOutButton.setDisable(true);
     }
 
@@ -38,10 +40,7 @@ public class ApplicationController {
         System.out.println("Sign in Button Pressed");
         if(!isUserSignedIn){
             popupNewStage(SIGNIN_FORM_PATH);
-            isUserSignedIn = true;
-            LSB_signOutButton.setDisable(false);
-            LSB_signInInButton.setText("User");
-            System.out.println("Signed in user");
+
         } else {
             System.out.println("Profile Button Pressed");
         }
@@ -57,7 +56,7 @@ public class ApplicationController {
         if(isUserSignedIn){
             isUserSignedIn = false;
             LSB_signOutButton.setDisable(true);
-            LSB_signInInButton.setText("Sign In");
+            LSB_signInButton.setText("Sign In");
             System.out.println("Signing out user");
         }
     }
@@ -75,5 +74,14 @@ public class ApplicationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void setLSB_signInButtonText(String text){
+        LSB_signInButton.setText(text);
+    }
+
+    public void resetSignInButton(){
+        LSB_signInButton.setText(SIGNIN_BUTTON_TEXT);
     }
 }

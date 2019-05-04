@@ -28,7 +28,7 @@
         <AnchorPane prefHeight="675.0" prefWidth="1000.0">
             <HBox prefHeight="665.0" prefWidth="1000.0">
                 <VBox fx:id="leftSideBarVBox" prefHeight="665.0" prefWidth="200.0">
-                    <Button fx:id="LSB_signInInButton" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
+                    <Button fx:id="LSB_signInButton" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
                             text="Sign In" textAlignment="CENTER"
                             onAction="#handleSignInButtonAction">
                         <padding>
