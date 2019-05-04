@@ -2,7 +2,12 @@ package application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class ApplicationController {
@@ -41,6 +46,16 @@ public class ApplicationController {
 
     public void handleRegisterButtonAction(ActionEvent actionEvent) {
         System.out.println("Register button pressed");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resource/view/registrationForm.fxml"));
+
+        try {
+            Scene registrationScene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(registrationScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleSignOutButtonAction(ActionEvent actionEvent) {
