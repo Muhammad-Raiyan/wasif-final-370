@@ -20,6 +20,8 @@ public class ApplicationController {
     public Button LSB_signInInButton;
 
     private static  boolean isUserSignedIn;
+    public static  String REGISTRATION_FORM_PATH = "/resource/view/RegistrationForm.fxml";
+    public static  String SIGNIN_FORM_PATH = "/resource/view/SignInForm.fxml";
 
     public ApplicationController() {
         System.out.println("Constructor Called");
@@ -35,6 +37,7 @@ public class ApplicationController {
     public void handleSignInButtonAction(ActionEvent actionEvent) {
         System.out.println("Sign in Button Pressed");
         if(!isUserSignedIn){
+            popupNewStage(SIGNIN_FORM_PATH);
             isUserSignedIn = true;
             LSB_signOutButton.setDisable(false);
             LSB_signInInButton.setText("User");
@@ -46,16 +49,7 @@ public class ApplicationController {
 
     public void handleRegisterButtonAction(ActionEvent actionEvent) {
         System.out.println("Register button pressed");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resource/view/registrationForm.fxml"));
-
-        try {
-            Scene registrationScene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setScene(registrationScene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        popupNewStage(REGISTRATION_FORM_PATH);
     }
 
     public void handleSignOutButtonAction(ActionEvent actionEvent) {
@@ -65,6 +59,21 @@ public class ApplicationController {
             LSB_signOutButton.setDisable(true);
             LSB_signInInButton.setText("Sign In");
             System.out.println("Signing out user");
+        }
+    }
+
+    /*
+        Additional Controller Code
+     */
+    private void popupNewStage(String registrationFormPath) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(registrationFormPath));
+        try {
+            Scene registrationScene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(registrationScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

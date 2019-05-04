@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * @author myname
  */
-public class registrationFormController {
+public class RegistrationFormController {
 
     @FXML
     public TextField nameField;
