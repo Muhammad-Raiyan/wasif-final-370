@@ -1,10 +1,12 @@
 package application;
 
+import application.service.AlertHelper;
 import application.service.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,7 +24,11 @@ public class Main extends Application {
 
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("Exiting Application");
-            UserService.getUserServiceSingleton().saveToFile();
+            if(UserService.getUserServiceSingleton().saveUsersData()){
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, primaryScene.getWindow(), "User data saved", "Successfully saved users data");
+            } else {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, primaryScene.getWindow(), "Error Saving User Data", "Error while saving users data");
+            }
         });
     }
 

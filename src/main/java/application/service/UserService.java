@@ -1,9 +1,16 @@
 package application.service;
 
 import application.Model.User;
+import application.dao.UsersDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,14 +19,17 @@ import java.util.Map;
  */
 public class UserService {
     private static final String MASTER_PASSWORD = "asd";
+
     private static UserService userServiceSingleton = null;
+    private UsersDAO usersDAO;
+
     private Map<String, User> userMap;
     private User currentUser = null;
 
     private UserService(){
-        userMap = new HashMap<>();
-        User user =  new User("admin", "admin", "asd");
-        userMap.put("admin", user);
+        System.out.println("UserService constructor called");
+        usersDAO = new UsersDAO();
+        userMap = usersDAO.initializeUserMap();
     }
 
     public static UserService getUserServiceSingleton() {
@@ -86,10 +96,14 @@ public class UserService {
         return currentUser.getUserName();
     }
 
-    public void saveToFile(){
+    public String getUserMapAsJson(){
         Gson gson = new GsonBuilder().create();
-        String jsonUserMap = gson.toJson(userMap);
-
-        System.out.println(jsonUserMap);
+        return  gson.toJson(userMap);
     }
+
+    public boolean saveUsersData(){
+        String jsonUserMap = getUserMapAsJson();
+        return usersDAO.saveUsersToFile(jsonUserMap);
+    }
+
 }
