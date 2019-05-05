@@ -12,7 +12,8 @@ public class UserService {
     private static final String MASTER_PASSWORD = "asd";
     private static UserService userServiceSingleton = null;
     private Map<String, User> userMap = new HashMap<>();
-    
+    private User currentUser = null;
+
     private UserService(){
 
     }
@@ -51,17 +52,33 @@ public class UserService {
 
     public boolean userDataValidation(String userName,String password){
 
-        return isValidUserName(userName) && isValidPassword(password) && isValidUser(userName, password);
+        return isValidPassword(password) && isValidUser(userName, password);
     }
 
     private boolean isValidUser(String userName, String password) {
-        if(password.equals(MASTER_PASSWORD))
+        if(password.equals(MASTER_PASSWORD) || password.equals(userMap.get(userName).getPassword()))
             return true;
         return false;
     }
 
     public boolean userDataValidation(String userName, String email, String password){
-
         return isValidUserName(userName) && isValidEmail(email) && isValidPassword(password);
+    }
+
+    public void signInUser(String userName){
+        currentUser = userMap.get(userName);
+        System.out.println("Signed In User " + currentUser);
+    }
+
+    public void signOutUser(){
+        currentUser = null;
+    }
+
+    public boolean isUserSignedIn(){
+        return currentUser != null;
+    }
+
+    public String getCurrentUserName(){
+        return currentUser.getUserName();
     }
 }

@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,14 +20,12 @@ public class ApplicationController {
     @FXML
     public Button LSB_signInButton;
 
-    private static  boolean isUserSignedIn;
     public static  String REGISTRATION_FORM_PATH = "/resource/view/RegistrationForm.fxml";
     public static  String SIGNIN_FORM_PATH = "/resource/view/SignInForm.fxml";
     public static  String SIGNIN_BUTTON_TEXT;
 
     public ApplicationController() {
         System.out.println("Constructor Called");
-        isUserSignedIn = false;
     }
 
     @FXML
@@ -38,9 +37,12 @@ public class ApplicationController {
 
     public void handleSignInButtonAction(ActionEvent actionEvent) {
         System.out.println("Sign in Button Pressed");
-        if(!isUserSignedIn){
-            popupNewStage(SIGNIN_FORM_PATH);
+        UserService userService = UserService.getUserServiceSingleton();
 
+        if(!userService.isUserSignedIn()){
+            popupNewStage(SIGNIN_FORM_PATH);
+            setLSB_signInButtonText(userService.getCurrentUserName());
+            LSB_signOutButton.setDisable(false);
         } else {
             System.out.println("Profile Button Pressed");
         }
@@ -53,10 +55,11 @@ public class ApplicationController {
 
     public void handleSignOutButtonAction(ActionEvent actionEvent) {
         System.out.println("Sign Out Button Pressed");
-        if(isUserSignedIn){
-            isUserSignedIn = false;
+        UserService userService = UserService.getUserServiceSingleton();
+        if(userService.isUserSignedIn()){
+            userService.signOutUser();
             LSB_signOutButton.setDisable(true);
-            LSB_signInButton.setText("Sign In");
+            resetSignInButton();
             System.out.println("Signing out user");
         }
     }
@@ -70,7 +73,7 @@ public class ApplicationController {
             Scene registrationScene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setScene(registrationScene);
-            stage.show();
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

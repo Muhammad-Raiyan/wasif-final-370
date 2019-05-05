@@ -26,6 +26,7 @@ public class SignInFormController {
         boolean isValidUser = userService.userDataValidation(nameField.getText(), passwordField.getText());
         if(isValidUser) {
             System.out.println("Sign In Successful");
+            userService.signInUser(nameField.getText());
             submitButton.getScene().getWindow().hide();
         } else {
             AlertHelper.showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(),
