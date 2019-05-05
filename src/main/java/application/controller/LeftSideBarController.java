@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * @author myname
  */
-public class LeftSideBarController {
+public class LeftSideBarController extends ApplicationController{
     @FXML
     public Button LSB_signOutButton;
     @FXML
@@ -67,17 +67,7 @@ public class LeftSideBarController {
     /*
         Additional Controller Code
      */
-    private void popupNewStage(String registrationFormPath) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(registrationFormPath));
-        try {
-            Scene registrationScene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setScene(registrationScene);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void setLSB_signInButtonText(String text){
         LSB_signInButton.setText(text);
