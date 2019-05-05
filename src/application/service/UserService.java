@@ -12,7 +12,7 @@ public class UserService {
     private static final String MASTER_PASSWORD = "asd";
     private static UserService userServiceSingleton = null;
     private Map<String, User> userMap = new HashMap<>();
-
+    
     private UserService(){
 
     }
