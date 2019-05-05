@@ -41,8 +41,11 @@ public class ApplicationController {
 
         if(!userService.isUserSignedIn()){
             popupNewStage(SIGN_IN_FORM_PATH);
-            setLSB_signInButtonText(userService.getCurrentUserName());
-            LSB_signOutButton.setDisable(false);
+            // Second check if user closed without signing in
+            if(userService.isUserSignedIn()){
+                setLSB_signInButtonText(userService.getCurrentUserName());
+                LSB_signOutButton.setDisable(false);
+            }
         } else {
             System.out.println("Profile Button Pressed");
         }
