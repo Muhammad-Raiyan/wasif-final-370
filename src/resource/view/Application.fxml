@@ -27,38 +27,7 @@
         </MenuBar>
         <AnchorPane prefHeight="675.0" prefWidth="1000.0">
             <HBox prefHeight="665.0" prefWidth="1000.0">
-                <VBox fx:id="leftSideBarVBox" prefHeight="665.0" prefWidth="200.0">
-                    <Button fx:id="LSB_signInButton" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
-                            text="Sign In" textAlignment="CENTER"
-                            onAction="#handleSignInButtonAction">
-                        <padding>
-                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
-                        </padding>
-                        <VBox.margin>
-                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
-                        </VBox.margin>
-                    </Button>
-                    <Button fx:id="LSB_signOutButton" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
-                            text="Sign Out" textAlignment="CENTER"
-                            onAction="#handleSignOutButtonAction">
-                        <padding>
-                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
-                        </padding>
-                        <VBox.margin>
-                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
-                        </VBox.margin>
-                    </Button>
-                    <Button fx:id="LSB_registerButton" layoutX="60.0" layoutY="40.0" mnemonicParsing="false"
-                            text="Register" textAlignment="CENTER"
-                            onAction="#handleRegisterButtonAction">
-                        <padding>
-                            <Insets bottom="10.0" left="30.0" right="30.0" top="10.0"/>
-                        </padding>
-                        <VBox.margin>
-                            <Insets bottom="20.0" left="50.0" right="20.0" top="20.0"/>
-                        </VBox.margin>
-                    </Button>
-                </VBox>
+                <fx:include fx:id="leftSideBarVBox" source="LeftSideBar.fxml"/>
                 <Line endX="-100.0" endY="600.0" startX="-100.0" startY="100.0">
                     <HBox.margin>
                         <Insets top="50.0"/>
