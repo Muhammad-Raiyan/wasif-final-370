@@ -1,6 +1,8 @@
 package application.service;
 
 import application.Model.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,5 +84,12 @@ public class UserService {
 
     public String getCurrentUserName(){
         return currentUser.getUserName();
+    }
+
+    public void saveToFile(){
+        Gson gson = new GsonBuilder().create();
+        String jsonUserMap = gson.toJson(userMap);
+
+        System.out.println(jsonUserMap);
     }
 }

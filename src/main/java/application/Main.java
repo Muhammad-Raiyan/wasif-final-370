@@ -1,5 +1,6 @@
 package application;
 
+import application.service.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,11 @@ public class Main extends Application {
         primaryScene.getStylesheets().add(getClass().getResource(APPLICATION_CSS_PATH).toExternalForm());
         primaryStage.setScene(primaryScene);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Exiting Application");
+            UserService.getUserServiceSingleton().saveToFile();
+        });
     }
 
 
