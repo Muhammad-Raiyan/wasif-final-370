@@ -22,8 +22,8 @@ public class LeftSideBarController {
     @FXML
     public Button LSB_signInButton;
 
-    protected static  String REGISTRATION_FORM_PATH = "/view/RegistrationForm.fxml";
-    protected static  String SIGN_IN_FORM_PATH = "/view/SignInForm.fxml";
+    protected static final String REGISTRATION_FORM_PATH = "/view/RegistrationForm.fxml";
+    protected static final String SIGN_IN_FORM_PATH = "/view/SignInForm.fxml";
     protected static  String SIGN_IN_BUTTON_TEXT;
 
     @FXML

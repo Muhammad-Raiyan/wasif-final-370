@@ -11,13 +11,13 @@ import java.util.Map;
 public class UserService {
     private static final String MASTER_PASSWORD = "asd";
     private static UserService userServiceSingleton = null;
-    private Map<String, User> userMap = new HashMap<String, User>();
+    private Map<String, User> userMap;
     private User currentUser = null;
 
     private UserService(){
-//        userMap = new HashMap<>();
-//        User user =  new User("admin", "admin", "asd");
-//        userMap.put("admin", user);
+        userMap = new HashMap<>();
+        User user =  new User("admin", "admin", "asd");
+        userMap.put("admin", user);
     }
 
     public static UserService getUserServiceSingleton() {

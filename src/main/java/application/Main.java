@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static String APPLICATION_FXML_PATH = "/view/Application.fxml";
-    public static String APPLICATION_CSS_PATH = "/css/application.css";
+    public static final String APPLICATION_FXML_PATH = "/view/Application.fxml";
+    public static final String APPLICATION_CSS_PATH = "/css/application.css";
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource(APPLICATION_FXML_PATH));
