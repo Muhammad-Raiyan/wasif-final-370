@@ -4,7 +4,6 @@ import application.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -71,7 +70,7 @@ public class LeftSideBarController {
     private void popupNewStage(String registrationFormPath) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(registrationFormPath));
         try {
-            Scene registrationScene = new Scene((Parent) fxmlLoader.load());
+            Scene registrationScene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setScene(registrationScene);
             stage.showAndWait();
