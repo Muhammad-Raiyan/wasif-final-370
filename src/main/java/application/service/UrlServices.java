@@ -60,10 +60,6 @@ public class UrlServices {
             Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productUrl);
             productList.add(product);
         }
-//        System.out.println(productUrlList.size());
-//        System.out.println(productNameList.size());
-//        System.out.println(productPriceList.size());
-
         return productList;
     }
 

@@ -1,11 +1,13 @@
 package application.controller;
 
 import application.Model.Product;
+import application.service.AlertHelper;
 import application.service.UrlServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,6 +38,8 @@ public class ApplicationController {
         System.out.println("Item searched: " + searchItem.getText());
         searchForItemButton.getScene().getWindow().hide();
 
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, searchForItemButton.getScene().getWindow(),
+                "Loading Data", "Please Wait; it takes some time to load the data");
         UrlServices urlServices = UrlServices.getInstance();
         List<Product> items = urlServices.searchForItem(searchItem.getText());
         System.out.println("Number of products: " + items.size());
