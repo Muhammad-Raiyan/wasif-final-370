@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class ApplicationController {
     public TextField searchItem;
     @FXML
     public Label searchLabel;
+    public AnchorPane appCenterPane;
 
     public ApplicationController() {
         System.out.println("Constructor Called");
@@ -32,12 +34,12 @@ public class ApplicationController {
 
     public void handleSubmitButtonForSearchItemAction(ActionEvent actionEvent) {
         System.out.println("Item searched: " + searchItem.getText());
-        searchLabel.setText("Please wait.............");
+        searchForItemButton.getScene().getWindow().hide();
+
         UrlServices urlServices = UrlServices.getInstance();
         List<Product> items = urlServices.searchForItem(searchItem.getText());
-        searchForItemButton.getScene().getWindow().hide();
         System.out.println("Number of products: " + items.size());
-        // items.forEach(System.out::println);
+        items.forEach(System.out::println);
     }
 
     protected void popupNewStage(String registrationFormPath) {

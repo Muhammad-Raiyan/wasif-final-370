@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-<AnchorPane fx:controller="application.controller.ApplicationController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ApplicationController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
@@ -19,10 +19,7 @@
                 <MenuItem mnemonicParsing="false" text="Close"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Search">
-                <MenuItem mnemonicParsing="false" text="Search for Items" onAction="#handleSearchForItem"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" text="About"/>
+                <MenuItem mnemonicParsing="false" onAction="#handleSearchForItem" text="Search for Items"/>
             </Menu>
         </MenuBar>
         <AnchorPane prefHeight="675.0" prefWidth="1000.0">
@@ -33,7 +30,19 @@
                         <Insets top="50.0"/>
                     </HBox.margin>
                 </Line>
-                <AnchorPane fx:id="appCenterPane" prefHeight="665.0" prefWidth="804.0"/>
+                <AnchorPane fx:id="appCenterPane" prefHeight="665.0" prefWidth="804.0">
+                    <TableView prefHeight="665.0" prefWidth="802.0">
+                        <columns>
+                            <TableColumn editable="false" prefWidth="75.0" text="Name"/>
+                            <TableColumn prefWidth="75.0" text="Price"/>
+                            <TableColumn prefWidth="75.0" text="Image"/>
+                            <TableColumn prefWidth="75.0" text="Item Url"/>
+                        </columns>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </TableView>
+                </AnchorPane>
             </HBox>
         </AnchorPane>
     </VBox>
