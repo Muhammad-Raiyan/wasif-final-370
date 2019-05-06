@@ -3,8 +3,12 @@ package application.service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author myname
@@ -26,20 +30,39 @@ public class UrlServices {
         return urlServices;
     }
 
-    public String searchForItem(String item){
+    public List<String> searchForItem(String item){
         if(item == null)
             return null;
         if(searchItemHistory.containsKey(item)){
-            return searchItemHistory.get(item);
+            return regexMatchHtml(searchItemHistory.get(item));
         }
 
         String searchUrl = searchUrlBase + item.trim();
-        String result = getHtmlContent(searchUrl);
+        String result = getHtmlContentAsString(searchUrl);
         searchItemHistory.put(item, result);
-        return result;
+        List<String> productList = regexMatchHtml(result);
+        System.out.println(productList.size());
+
+        return productList;
     }
 
-    private String getHtmlContent(String searchUrl) {
+    public List<String> regexMatchHtml(String context){
+        System.out.println(context);
+        final String regex = "<div class=\\\"product-image-container\\\">(.*?)<\\/div>";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(context);
+
+        List<String> res = new ArrayList<>();
+        while (matcher.find()) {
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                res.add(matcher.group(i));
+            }
+        }
+        return res;
+    }
+
+
+    private String getHtmlContentAsString(String searchUrl) {
         String target = null;
         try (BufferedReader reader = readUrl(searchUrl)){
             String line = reader.readLine();

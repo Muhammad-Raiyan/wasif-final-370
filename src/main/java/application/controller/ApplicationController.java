@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ApplicationController {
 
@@ -32,9 +33,9 @@ public class ApplicationController {
         System.out.println("Item searched: " + searchItem.getText());
         searchLabel.setText("Please wait.............");
         UrlServices urlServices = UrlServices.getInstance();
-        String items = urlServices.searchForItem(searchItem.getText());
+        List<String> items = urlServices.searchForItem(searchItem.getText());
         searchForItemButton.getScene().getWindow().hide();
-        System.out.println(items);
+        items.forEach(System.out::println);
     }
 
     protected void popupNewStage(String registrationFormPath) {
