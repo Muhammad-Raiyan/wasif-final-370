@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane fx:controller="application.controller.ApplicationController"
+<GridPane fx:controller="application.controller.SingleInputFormController"
           xmlns:fx="http://javafx.com/fxml" alignment="center"
           hgap="10" vgap="10">
     <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
@@ -31,16 +33,20 @@
                     </HBox.margin>
                 </Line>
                 <AnchorPane fx:id="appCenterPane" prefHeight="665.0" prefWidth="804.0">
-                    <TableView prefHeight="665.0" prefWidth="802.0">
+                    <TableView fx:id="productTable" prefHeight="665.0" prefWidth="802.0">
                         <columns>
-                            <TableColumn editable="false" prefWidth="75.0" text="Name"/>
-                            <TableColumn prefWidth="75.0" text="Price"/>
-                            <TableColumn prefWidth="75.0" text="Image"/>
-                            <TableColumn prefWidth="75.0" text="Item Url"/>
+                            <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Name"/>
+                            <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price"/>
+                            <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Image"/>
+                            <TableColumn fx:id="urlColumn" prefWidth="75.0" text="Item Url"/>
                         </columns>
                         <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                         </padding>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                            </FXCollections>
+                        </items>
                     </TableView>
                 </AnchorPane>
             </HBox>

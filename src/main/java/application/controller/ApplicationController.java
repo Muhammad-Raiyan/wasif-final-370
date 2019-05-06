@@ -3,14 +3,14 @@ package application.controller;
 import application.Model.Product;
 import application.service.AlertHelper;
 import application.service.UrlServices;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,28 +22,45 @@ public class ApplicationController {
     private static String singleInputFormPath = "/view/SingleInputForm.fxml";
     public Button searchForItemButton;
     public TextField searchItem;
-    @FXML
-    public Label searchLabel;
+
     public AnchorPane appCenterPane;
+    public TableView<Product> productTable;
+    @FXML
+    public TableColumn<Product, String> nameColumn;
+    @FXML
+    public TableColumn<Product, String> priceColumn;
+    @FXML
+    public TableColumn<Product, String> imageColumn;
+    @FXML
+    public TableColumn<Product, String> urlColumn;
+
+    private ObservableList<Product> productObservableList;
 
     public ApplicationController() {
         System.out.println("Constructor Called");
     }
 
+    @FXML
+    public void initialize(){
+        productObservableList = FXCollections.observableArrayList(
+                new Product("Empty", "Empty", "Empty", "Empty")
+        );
+
+    }
     public void handleSearchForItem(ActionEvent actionEvent) {
         popupNewStage(singleInputFormPath);
+        handleSubmitButtonForSearchItemAction();
     }
 
-    public void handleSubmitButtonForSearchItemAction(ActionEvent actionEvent) {
-        System.out.println("Item searched: " + searchItem.getText());
-        searchForItemButton.getScene().getWindow().hide();
-
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, searchForItemButton.getScene().getWindow(),
-                "Loading Data", "Please Wait; it takes some time to load the data");
+    public void handleSubmitButtonForSearchItemAction() {
         UrlServices urlServices = UrlServices.getInstance();
-        List<Product> items = urlServices.searchForItem(searchItem.getText());
-        System.out.println("Number of products: " + items.size());
-        items.forEach(System.out::println);
+        List<Product> items = urlServices.getCurrentProduct();
+        productObservableList = FXCollections.observableArrayList(items);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageUrl"));
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));
+        productTable.setItems(productObservableList);
     }
 
     protected void popupNewStage(String registrationFormPath) {

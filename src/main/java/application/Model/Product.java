@@ -1,60 +1,64 @@
 package application.Model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * @author myname
  */
 public class Product {
-    private String name;
-    private double price;
-    private String imageUrl;
-    private String url;
+    private SimpleStringProperty name;
+    private SimpleStringProperty price;
+    private SimpleStringProperty imageUrl;
+    private SimpleStringProperty url;
 
-    public Product(String name, int price, String imageUrl, String url) {
-        this.name = name;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.url = url;
-    }
+
 
     public Product(String name, String price, String imageUrl, String url) {
-        this.name = name;
-        this.price = Double.valueOf(price);
-        this.imageUrl = imageUrl;
-        this.url = url;
+        this.name = new SimpleStringProperty(name);
+        this.price = new SimpleStringProperty(price);
+        this.imageUrl = new SimpleStringProperty(imageUrl);
+        this.url = new SimpleStringProperty(url);
     }
 
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
-    public Double getPrice() {
-        return price;
+    public String getPrice() {
+        return price.get();
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price.set(price);
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return imageUrl.get();
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.imageUrl.set(imageUrl);
     }
 
     public String getUrl() {
-        return url;
+        return url.get();
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url.set(url);
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

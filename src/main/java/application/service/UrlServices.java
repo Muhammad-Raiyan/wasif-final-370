@@ -24,6 +24,7 @@ public class UrlServices {
     private static final String priceRegex = "<div class=\\\"regular-price\\\">(.*?)<\\/div>";
 
     private Map<String, List<Product>> searchItemHistory;
+    List<Product> currentItem;
 
     private UrlServices(){
         searchItemHistory = new HashMap<>();
@@ -60,11 +61,11 @@ public class UrlServices {
             Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productUrl);
             productList.add(product);
         }
+        currentItem = productList;
         return productList;
     }
 
     public List<String> regexMatchHtml(String context, String regex){
-        System.out.println(context);
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(context);
 
@@ -102,4 +103,8 @@ public class UrlServices {
                 new InputStreamReader(
                         new URL(url).openStream()));
     } // read
+
+    public List<Product> getCurrentProduct() {
+        return currentItem;
+    }
 }
