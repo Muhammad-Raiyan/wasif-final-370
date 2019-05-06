@@ -37,11 +37,12 @@ public class UrlServices {
         return urlServices;
     }
 
-    public List<Product> searchForItem(String item){
+    public void searchForItem(String item){
         if(item == null)
-            return null;
+            return;
         if(searchItemHistory.containsKey(item)){
-            return searchItemHistory.get(item);
+            currentItem = searchItemHistory.get(item);
+            return;
         }
 
         String searchUrl = searchUrlBase + item.trim();
@@ -61,8 +62,8 @@ public class UrlServices {
             Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productUrl);
             productList.add(product);
         }
+        searchItemHistory.put(item, productList);
         currentItem = productList;
-        return productList;
     }
 
     public List<String> regexMatchHtml(String context, String regex){
