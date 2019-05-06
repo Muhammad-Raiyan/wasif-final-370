@@ -1,5 +1,7 @@
 package application.service;
 
+import application.Model.Product;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -17,7 +19,11 @@ public class UrlServices {
     private static UrlServices urlServices = null;
     private static String searchUrlBase = "https://www.nyknicksstore.com/?query=";
 
-    private Map<String, String> searchItemHistory;
+    private static final String productUrlRegex = "<div class=\\\"product-image-container\\\">(.*?)<\\/div>";
+    private static final String titleRegex = "<h4 class=\\\"product-card-title\\\">(.*?)<\\/h4>";
+    private static final String priceRegex = "<div class=\\\"regular-price\\\">(.*?)<\\/div>";
+
+    private Map<String, List<Product>> searchItemHistory;
 
     private UrlServices(){
         searchItemHistory = new HashMap<>();
@@ -30,25 +36,39 @@ public class UrlServices {
         return urlServices;
     }
 
-    public List<String> searchForItem(String item){
+    public List<Product> searchForItem(String item){
         if(item == null)
             return null;
         if(searchItemHistory.containsKey(item)){
-            return regexMatchHtml(searchItemHistory.get(item));
+            return searchItemHistory.get(item);
         }
 
         String searchUrl = searchUrlBase + item.trim();
-        String result = getHtmlContentAsString(searchUrl);
-        searchItemHistory.put(item, result);
-        List<String> productList = regexMatchHtml(result);
-        System.out.println(productList.size());
+        String htmlString = getHtmlContentAsString(searchUrl);
+
+        List<String> productUrlList = regexMatchHtml(htmlString, productUrlRegex);
+        List<String> productNameList = regexMatchHtml(htmlString, titleRegex);
+        List<String> productPriceList = regexMatchHtml(htmlString, priceRegex);
+
+        List<Product> productList = new ArrayList<>();
+        for(int i=0; i<productNameList.size() ; i++){
+            String productName = productNameList.get(i);
+            String productPrice = productPriceList.size() > i ? productPriceList.get(i) : null;
+            String productUrl = productUrlList.size() > i ? productUrlList.get(i) : null;
+            if(productPrice == null || productUrl == null)
+                break;
+            Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productUrl);
+            productList.add(product);
+        }
+        System.out.println(productUrlList.size());
+        System.out.println(productNameList.size());
+        System.out.println(productPriceList.size());
 
         return productList;
     }
 
-    public List<String> regexMatchHtml(String context){
+    public List<String> regexMatchHtml(String context, String regex){
         System.out.println(context);
-        final String regex = "<div class=\\\"product-image-container\\\">(.*?)<\\/div>";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(context);
 

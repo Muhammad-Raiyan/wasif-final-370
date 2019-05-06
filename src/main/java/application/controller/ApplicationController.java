@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Model.Product;
 import application.service.UrlServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,9 +34,10 @@ public class ApplicationController {
         System.out.println("Item searched: " + searchItem.getText());
         searchLabel.setText("Please wait.............");
         UrlServices urlServices = UrlServices.getInstance();
-        List<String> items = urlServices.searchForItem(searchItem.getText());
+        List<Product> items = urlServices.searchForItem(searchItem.getText());
         searchForItemButton.getScene().getWindow().hide();
-        items.forEach(System.out::println);
+        System.out.println("Number of products: " + items.size());
+        // items.forEach(System.out::println);
     }
 
     protected void popupNewStage(String registrationFormPath) {
