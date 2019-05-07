@@ -3,6 +3,7 @@ package application.controller;
 import application.service.AlertHelper;
 import application.service.UrlServices;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,8 +13,11 @@ import javafx.scene.control.TextField;
  * @author myname
  */
 public class SingleInputFormController {
+    @FXML
     public Button searchForItemButton;
+    @FXML
     public TextField searchItem;
+    @FXML
     public Label searchLabel;
 
     public void handleSubmitButtonForSearchItemAction(ActionEvent actionEvent) {
@@ -23,5 +27,17 @@ public class SingleInputFormController {
         UrlServices urlServices = UrlServices.getInstance();
         urlServices.searchForItem(searchItem.getText());
         searchForItemButton.getScene().getWindow().hide();
+    }
+
+    public Button getSearchForItemButton() {
+        return searchForItemButton;
+    }
+
+    public TextField getSearchItem() {
+        return searchItem;
+    }
+
+    public Label getSearchLabel() {
+        return searchLabel;
     }
 }

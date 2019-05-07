@@ -34,7 +34,6 @@ public class UrlDao {
             Gson gson = new GsonBuilder().create();
             Type typeOfHashMap = new TypeToken<Map<String, List<Product>>>(){}.getType();
             searchItemHistory = gson.fromJson(reader, typeOfHashMap);
-            System.out.println(searchItemHistory.size());
         } catch (IOException e) {
             System.out.println("users.json doesn't exist and will be created at application ext");
         }

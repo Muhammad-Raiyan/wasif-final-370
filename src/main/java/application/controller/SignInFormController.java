@@ -34,4 +34,16 @@ public class SignInFormController {
         }
 
     }
+
+    public Button getSubmitButton() {
+        return submitButton;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public TextField getNameField() {
+        return nameField;
+    }
 }

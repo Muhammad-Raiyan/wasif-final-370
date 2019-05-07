@@ -41,5 +41,21 @@ public class RegistrationFormController {
         System.out.println("registration Successful");
         submitButton.getScene().getWindow().hide();
     }
+
+    public TextField getNameField() {
+        return nameField;
+    }
+
+    public TextField getEmailField() {
+        return emailField;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public Button getSubmitButton() {
+        return submitButton;
+    }
 }
 

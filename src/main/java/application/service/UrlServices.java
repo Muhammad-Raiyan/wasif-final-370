@@ -147,4 +147,44 @@ public class UrlServices {
         String jsonSearchHistory = getSearchHistoryAsJson();
         return  urlDao.saveToFile(jsonSearchHistory);
     }
+
+    public static String getSearchUrlBase() {
+        return searchUrlBase;
+    }
+
+    public static void setSearchUrlBase(String searchUrlBase) {
+        UrlServices.searchUrlBase = searchUrlBase;
+    }
+
+    public static String getProductUrlRegex() {
+        return productUrlRegex;
+    }
+
+    public static String getTitleRegex() {
+        return titleRegex;
+    }
+
+    public static String getPriceRegex() {
+        return priceRegex;
+    }
+
+    public static String getProductImageUrlRegex() {
+        return productImageUrlRegex;
+    }
+
+    public Map<String, List<Product>> getSearchItemHistory() {
+        return searchItemHistory;
+    }
+
+    public void setSearchItemHistory(Map<String, List<Product>> searchItemHistory) {
+        this.searchItemHistory = searchItemHistory;
+    }
+
+    public List<Product> getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(List<Product> currentItem) {
+        this.currentItem = currentItem;
+    }
 }

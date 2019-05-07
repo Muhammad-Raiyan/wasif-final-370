@@ -21,7 +21,9 @@ public class ApplicationController {
 
     private static String singleInputFormPath = "/view/SingleInputForm.fxml";
 
+    @FXML
     public AnchorPane appCenterPane;
+    @FXML
     public TableView<Product> productTable;
     @FXML
     public TableColumn<Product, String> nameColumn;
@@ -68,5 +70,37 @@ public class ApplicationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getSingleInputFormPath() {
+        return singleInputFormPath;
+    }
+
+    public AnchorPane getAppCenterPane() {
+        return appCenterPane;
+    }
+
+    public TableView<Product> getProductTable() {
+        return productTable;
+    }
+
+    public TableColumn<Product, String> getNameColumn() {
+        return nameColumn;
+    }
+
+    public TableColumn<Product, String> getPriceColumn() {
+        return priceColumn;
+    }
+
+    public TableColumn<Product, String> getImageColumn() {
+        return imageColumn;
+    }
+
+    public TableColumn<Product, String> getUrlColumn() {
+        return urlColumn;
+    }
+
+    public ObservableList<Product> getProductObservableList() {
+        return productObservableList;
     }
 }

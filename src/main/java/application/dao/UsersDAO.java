@@ -26,7 +26,6 @@ public class UsersDAO {
             userMapFromFile.put("admin", user);
             return userMapFromFile;
         }
-
         return userMapFromFile;
     }
 
@@ -38,7 +37,6 @@ public class UsersDAO {
             Gson gson = new GsonBuilder().create();
             Type typeOfHashMap = new TypeToken<Map<String, User>>(){}.getType();
             newMap = gson.fromJson(reader, typeOfHashMap);
-            System.out.println(newMap.size());
         } catch (IOException e) {
             System.out.println("users.json doesn't exist and will be created at application ext");
         }

@@ -99,4 +99,27 @@ public class UserService {
         return usersDAO.saveUsersToFile(jsonUserMap);
     }
 
+    public UsersDAO getUsersDAO() {
+        return usersDAO;
+    }
+
+    public void setUsersDAO(UsersDAO usersDAO) {
+        this.usersDAO = usersDAO;
+    }
+
+    public Map<String, User> getUserMap() {
+        return userMap;
+    }
+
+    public void setUserMap(Map<String, User> userMap) {
+        this.userMap = userMap;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 }

@@ -71,4 +71,28 @@ public class LeftSideBarController extends ApplicationController{
     public void resetSignInButton(){
         LSB_signInButton.setText(SIGN_IN_BUTTON_TEXT);
     }
+
+    public Button getLSB_signOutButton() {
+        return LSB_signOutButton;
+    }
+
+    public Button getLSB_registerButton() {
+        return LSB_registerButton;
+    }
+
+    public Button getLSB_signInButton() {
+        return LSB_signInButton;
+    }
+
+    public static String getRegistrationFormPath() {
+        return REGISTRATION_FORM_PATH;
+    }
+
+    public static String getSignInFormPath() {
+        return SIGN_IN_FORM_PATH;
+    }
+
+    public static String getSignInButtonText() {
+        return SIGN_IN_BUTTON_TEXT;
+    }
 }
