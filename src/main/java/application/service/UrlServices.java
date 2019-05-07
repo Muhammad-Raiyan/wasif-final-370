@@ -2,8 +2,11 @@ package application.service;
 
 import application.Model.Product;
 
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +55,7 @@ public class UrlServices {
         List<String> productNameList = regexMatchHtml(htmlString, titleRegex);
         List<String> productPriceList = regexMatchHtml(htmlString, priceRegex);
 
+
         List<Product> productList = new ArrayList<>();
         for(int i=0; i<productNameList.size() ; i++){
             String productName = productNameList.get(i);
@@ -73,7 +77,11 @@ public class UrlServices {
         List<String> res = new ArrayList<>();
         while (matcher.find()) {
             for (int i = 1; i <= matcher.groupCount(); i++) {
-                res.add(matcher.group(i));
+                if (regex.equals(titleRegex)) {
+                    res.add(getTitle(matcher.group(i)));
+                } else {
+                    res.add(matcher.group(i));
+                }
             }
         }
         return res;
@@ -107,5 +115,27 @@ public class UrlServices {
 
     public List<Product> getCurrentProduct() {
         return currentItem;
+    }
+
+    public static String getTitle(String text){
+        final String regex = ".*?(title).*?(\\\".*?\\\")";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(text);
+        String result = null;
+        if (matcher.find()){
+            String string1=matcher.group(2);
+            result = unescapeHtml3(string1);
+        }
+        return result.substring(1, result.length()-1);
+    }
+
+    public static String unescapeHtml3( String str ) {
+        try {
+            HTMLDocument doc = new HTMLDocument();
+            new HTMLEditorKit().read( new StringReader( "<html><body>" + str ), doc, 0 );
+            return doc.getText( 1, doc.getLength() );
+        } catch( Exception ex ) {
+            return str;
+        }
     }
 }
