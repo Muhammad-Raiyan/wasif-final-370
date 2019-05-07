@@ -74,7 +74,7 @@ public class CommandParser {
             }
         }
         Gson gson = new GsonBuilder().create();
-        String outputData = gson.toJson(searchItemHistory);
+        String outputData = gson.toJson(inputItemHistory);
         /* -Output Dump- */
         System.out.println("Writing data to " + outputFile);
         writeOutput(outputFile, outputData);

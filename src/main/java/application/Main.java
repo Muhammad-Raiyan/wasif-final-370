@@ -12,9 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class Main extends Application {
 

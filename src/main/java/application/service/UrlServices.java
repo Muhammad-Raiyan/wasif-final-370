@@ -46,8 +46,10 @@ public class UrlServices {
     public void searchForItem(String item){
         if(item == null)
             return;
+        Logger logger = Logger.getInstance();
         if(searchItemHistory.containsKey(item)){
             currentItem = searchItemHistory.get(item);
+            logger.log("UPDATE PRODUCT", currentItem.toString()+"\n");
             return;
         }
 
@@ -78,6 +80,7 @@ public class UrlServices {
             productList.add(product);
         }
         searchItemHistory.put(item, productList);
+        logger.log("INSERT PRODUCT", productList.toString()+"\n");
         currentItem = productList;
     }
 

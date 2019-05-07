@@ -34,6 +34,8 @@ public class UserService {
     public void addNewUser(String userName, String email, String password){
         User user = new User(userName, email,password);
         userMap.put(userName, user);
+        Logger logger = Logger.getInstance();
+        logger.log("INSERT USER", user.toString() + "\n");
         System.out.println("added new user: " + user);
     }
 
@@ -74,10 +76,13 @@ public class UserService {
 
     public void signInUser(String userName){
         currentUser = userMap.get(userName);
-        System.out.println("Signed In User " + currentUser);
+        Logger logger = Logger.getInstance();
+        logger.log("SIGN IN USER", currentUser.toString() + "\n");
     }
 
     public void signOutUser(){
+        Logger logger = Logger.getInstance();
+        logger.log("SIGN OUT USER", currentUser.toString() + "\n");
         currentUser = null;
     }
 
