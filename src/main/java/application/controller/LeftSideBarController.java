@@ -95,4 +95,20 @@ public class LeftSideBarController extends ApplicationController{
     public static String getSignInButtonText() {
         return SIGN_IN_BUTTON_TEXT;
     }
+
+    public void setLSB_signOutButton(Button LSB_signOutButton) {
+        this.LSB_signOutButton = LSB_signOutButton;
+    }
+
+    public void setLSB_registerButton(Button LSB_registerButton) {
+        this.LSB_registerButton = LSB_registerButton;
+    }
+
+    public void setLSB_signInButton(Button LSB_signInButton) {
+        this.LSB_signInButton = LSB_signInButton;
+    }
+
+    public static void setSignInButtonText(String signInButtonText) {
+        SIGN_IN_BUTTON_TEXT = signInButtonText;
+    }
 }

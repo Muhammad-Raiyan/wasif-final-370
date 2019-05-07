@@ -40,4 +40,16 @@ public class SingleInputFormController {
     public Label getSearchLabel() {
         return searchLabel;
     }
+
+    public void setSearchForItemButton(Button searchForItemButton) {
+        this.searchForItemButton = searchForItemButton;
+    }
+
+    public void setSearchItem(TextField searchItem) {
+        this.searchItem = searchItem;
+    }
+
+    public void setSearchLabel(Label searchLabel) {
+        this.searchLabel = searchLabel;
+    }
 }

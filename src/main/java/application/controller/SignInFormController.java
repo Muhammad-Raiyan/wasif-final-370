@@ -46,4 +46,16 @@ public class SignInFormController {
     public TextField getNameField() {
         return nameField;
     }
+
+    public void setSubmitButton(Button submitButton) {
+        this.submitButton = submitButton;
+    }
+
+    public void setPasswordField(PasswordField passwordField) {
+        this.passwordField = passwordField;
+    }
+
+    public void setNameField(TextField nameField) {
+        this.nameField = nameField;
+    }
 }

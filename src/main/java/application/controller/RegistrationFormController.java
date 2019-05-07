@@ -57,5 +57,21 @@ public class RegistrationFormController {
     public Button getSubmitButton() {
         return submitButton;
     }
+
+    public void setNameField(TextField nameField) {
+        this.nameField = nameField;
+    }
+
+    public void setEmailField(TextField emailField) {
+        this.emailField = emailField;
+    }
+
+    public void setPasswordField(PasswordField passwordField) {
+        this.passwordField = passwordField;
+    }
+
+    public void setSubmitButton(Button submitButton) {
+        this.submitButton = submitButton;
+    }
 }
 

@@ -103,4 +103,36 @@ public class ApplicationController {
     public ObservableList<Product> getProductObservableList() {
         return productObservableList;
     }
+
+    public static void setSingleInputFormPath(String singleInputFormPath) {
+        ApplicationController.singleInputFormPath = singleInputFormPath;
+    }
+
+    public void setAppCenterPane(AnchorPane appCenterPane) {
+        this.appCenterPane = appCenterPane;
+    }
+
+    public void setProductTable(TableView<Product> productTable) {
+        this.productTable = productTable;
+    }
+
+    public void setNameColumn(TableColumn<Product, String> nameColumn) {
+        this.nameColumn = nameColumn;
+    }
+
+    public void setPriceColumn(TableColumn<Product, String> priceColumn) {
+        this.priceColumn = priceColumn;
+    }
+
+    public void setImageColumn(TableColumn<Product, String> imageColumn) {
+        this.imageColumn = imageColumn;
+    }
+
+    public void setUrlColumn(TableColumn<Product, String> urlColumn) {
+        this.urlColumn = urlColumn;
+    }
+
+    public void setProductObservableList(ObservableList<Product> productObservableList) {
+        this.productObservableList = productObservableList;
+    }
 }
