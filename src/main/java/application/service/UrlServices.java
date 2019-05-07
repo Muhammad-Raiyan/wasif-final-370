@@ -1,6 +1,9 @@
 package application.service;
 
 import application.Model.Product;
+import application.dao.UrlDao;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -26,9 +29,11 @@ public class UrlServices {
 
     private Map<String, List<Product>> searchItemHistory;
     private List<Product> currentItem;
+    private UrlDao urlDao;
 
     private UrlServices(){
         searchItemHistory = new HashMap<>();
+        urlDao = new UrlDao();
     }
 
     public static UrlServices getInstance(){
@@ -132,5 +137,13 @@ public class UrlServices {
         return currentItem;
     }
 
+    public String getSearchHistoryAsJson(){
+        Gson gson = new GsonBuilder().create();
+        return  gson.toJson(searchItemHistory);
+    }
 
+    public boolean saveSearchHistoryToFile(){
+        String jsonSearchHistory = getSearchHistoryAsJson();
+        return  urlDao.saveToFile(jsonSearchHistory);
+    }
 }

@@ -1,6 +1,7 @@
 package application;
 
 import application.service.AlertHelper;
+import application.service.UrlServices;
 import application.service.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +25,14 @@ public class Main extends Application {
 
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("Exiting Application");
-            if(UserService.getUserServiceSingleton().saveUsersData()){
+            if(UserService.getUserServiceSingleton().saveUsersData()
+                    && UrlServices.getInstance().saveSearchHistoryToFile()){
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, primaryScene.getWindow(), "User data saved", "Successfully saved users data");
             } else {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, primaryScene.getWindow(), "Error Saving User Data", "Error while saving users data");
             }
+
+
         });
     }
 
