@@ -40,11 +40,8 @@ public class ApplicationController {
 
     @FXML
     public void initialize(){
-        productObservableList = FXCollections.observableArrayList(
-                new Product("Empty", "Empty", "Empty", "Empty")
-        );
-
     }
+
     public void handleSearchForItem(ActionEvent actionEvent) {
         popupNewStage(singleInputFormPath);
         handleSubmitButtonForSearchItemAction();

@@ -36,7 +36,7 @@
                         <columns>
                             <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Name"/>
                             <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price"/>
-                            <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Image"/>
+                            <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Image" />
                             <TableColumn fx:id="urlColumn" prefWidth="75.0" text="Item Url"/>
                         </columns>
                         <padding>
