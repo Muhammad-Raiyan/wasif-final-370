@@ -26,9 +26,10 @@ public class UrlServices {
     private static final String productUrlRegex = "<div class=\\\"product-image-container\\\">(.*?)<\\/div>";
     private static final String titleRegex = "<h4 class=\\\"product-card-title\\\">(.*?)<\\/h4>";
     private static final String priceRegex = "<div class=\\\"regular-price\\\">(.*?)<\\/div>";
+    private static final String productImageUrlRegex = "<div class=\"product-image-container\">(.*?)</div>";
 
     private Map<String, List<Product>> searchItemHistory;
-    List<Product> currentItem;
+    private List<Product> currentItem;
 
     private UrlServices(){
         searchItemHistory = new HashMap<>();
@@ -55,25 +56,39 @@ public class UrlServices {
         List<String> productUrlList = regexMatchHtml(htmlString, productUrlRegex);
         List<String> productNameList = regexMatchHtml(htmlString, titleRegex);
         List<String> productPriceList = regexMatchHtml(htmlString, priceRegex);
-
+        List<String> productImageUrlList = regexGetImageUrlList(htmlString);
 
         List<Product> productList = new ArrayList<>();
         for(int i=0; i<productNameList.size() ; i++){
             String productName = productNameList.get(i);
             String productPrice = productPriceList.size() > i ? productPriceList.get(i) : null;
             String productUrl = productUrlList.size() > i ? productUrlList.get(i) : null;
+            String productImageUrl = productImageUrlList.size()>i ? productImageUrlList.get(i):null;
             if(productPrice == null || productUrl == null)
                 break;
-            Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productUrl);
+            Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productImageUrl);
             productList.add(product);
         }
         searchItemHistory.put(item, productList);
         currentItem = productList;
     }
 
-    public List<String> regexMatchHtml(String context, String regex){
+    private List<String> regexGetImageUrlList(String htmlString) {
+        final Pattern pattern = Pattern.compile(productImageUrlRegex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(htmlString);
+
+        List<String> res = new ArrayList<>();
+        while (matcher.find()) {
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                res.add(getImageUrl(matcher.group(i)));
+            }
+        }
+        return res;
+    }
+
+    public List<String> regexMatchHtml(String htmlString, String regex){
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        final Matcher matcher = pattern.matcher(context);
+        final Matcher matcher = pattern.matcher(htmlString);
 
         List<String> res = new ArrayList<>();
         while (matcher.find()) {
@@ -81,7 +96,7 @@ public class UrlServices {
                 if (regex.equals(titleRegex)) {
                     res.add(getTitle(matcher.group(i)));
                 } else if(regex.equals(productUrlRegex)){
-                    res.add(getUrl(matcher.group(i)));
+                    res.add(getProductUrl(matcher.group(i)));
                 }
                 else {
                     res.add(matcher.group(i));
@@ -122,7 +137,7 @@ public class UrlServices {
     }
 
     public static String getTitle(String text){
-        final String regex = ".*?(title).*?(\\\".*?\\\")";
+        final String regex = ".*?(title).*?(\".*?\")";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(text);
         String result = null;
@@ -133,8 +148,8 @@ public class UrlServices {
         return result.substring(1, result.length()-1);
     }
 
-    public static String getUrl(String text){
-        final String regex = ".*?(\\\".*?\\\").*?\\\".*?\\\".*?\\\".*?\\\".*?\\\".*?\\\".*?(\\\".*?\\\")";
+    public static String getProductUrl(String text){
+        final String regex = ".*?(\".*?\").*?\".*?\".*?\".*?\".*?\".*?\".*?(\".*?\")";
         String result = null;
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(text);
@@ -143,6 +158,18 @@ public class UrlServices {
             result = unescapeHtml3(string1);
         }
         return siteUrlBase + result.substring(1, result.length()-1);
+    }
+
+    public static String getImageUrl(String text){
+        String re1=".*?\".*?\".*?\".*?\".*?\".*?\".*?(\".*?\")";	// Double Quote String 1
+        Pattern p = Pattern.compile(re1,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher m = p.matcher(text);
+        if (m.find())
+        {
+            String result = m.group(1);
+            return "https:" + result.substring(1, result.length()-1);
+        }
+        return null;
     }
 
     public static String unescapeHtml3( String str ) {
