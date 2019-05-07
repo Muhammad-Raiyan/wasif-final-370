@@ -5,6 +5,7 @@ import application.service.CommandParser;
 import application.service.UrlServices;
 import application.service.UserService;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,6 +35,9 @@ public class Main extends Application {
 
         if(!commandParser.onlyProcess()){
             primaryStage.show();
+        } else {
+            Platform.exit();
+            System.exit(0);
         }
 
         primaryStage.setOnCloseRequest(event -> {

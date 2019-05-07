@@ -1,9 +1,10 @@
 package application.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import application.Model.Product;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,11 @@ public class CommandParser {
     public void parse(List<String> args) throws IllegalArgumentException {
         for (int i = 0; i < args.size(); i += 2) {
             if (args.get(i).charAt(0) == '-') {
-                options.put(args.get(i).toLowerCase(), args.get(i + 1));
+                if(args.get(i).charAt(1) != 'p'){
+                    options.put(args.get(i).toLowerCase(), args.get(i + 1));
+                } else {
+                    options.put(args.get(i).toLowerCase(), args.get(i));
+                }
             } else {
                 throw new IllegalArgumentException("Not a valid argument " + args.get(i));
             }
@@ -53,6 +58,26 @@ public class CommandParser {
     }
 
     private void handleOutputFile() {
+        String outputFileName = options.get("-o");
+        File outputFile = null;
+        try {
+            outputFile = new File(outputFileName).getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UrlServices urlServices = UrlServices.getInstance();
+        Map<String, List<Product>> inputItemHistory = new HashMap<>();
+        Map<String, List<Product>> searchItemHistory = urlServices.getSearchItemHistory();
+        for(String item : inputItems){
+            if(searchItemHistory.containsKey(item)){
+                inputItemHistory.put(item, searchItemHistory.get(item));
+            }
+        }
+        Gson gson = new GsonBuilder().create();
+        String outputData = gson.toJson(searchItemHistory);
+        /* -Output Dump- */
+        System.out.println("Writing data to " + outputFile);
+        writeOutput(outputFile, outputData);
 
     }
 
@@ -66,7 +91,7 @@ public class CommandParser {
         }
         System.out.println("Reading from file: " + inputFile);
         assert inputFile != null;
-       inputItems =  getInputData(inputFile);
+        inputItems =  getInputData(inputFile);
         UrlServices urlServices = UrlServices.getInstance();
         for(String item : inputItems){
             urlServices.searchForItem(item);
@@ -99,6 +124,15 @@ public class CommandParser {
         }
 
         return inputData;
+    }
+
+    private static void writeOutput(File outputFile, String data){
+        try(FileWriter fileWriter = new FileWriter(outputFile, true)) {
+            fileWriter.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Map<String, String> getOptions() {
