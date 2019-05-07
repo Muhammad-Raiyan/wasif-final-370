@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 public class UrlServices {
     private static UrlServices urlServices = null;
     private static String searchUrlBase = "https://www.nyknicksstore.com/?query=";
+    private static String siteUrlBase = "https://www.nyknicksstore.com/";
 
     private static final String productUrlRegex = "<div class=\\\"product-image-container\\\">(.*?)<\\/div>";
     private static final String titleRegex = "<h4 class=\\\"product-card-title\\\">(.*?)<\\/h4>";
@@ -79,7 +80,10 @@ public class UrlServices {
             for (int i = 1; i <= matcher.groupCount(); i++) {
                 if (regex.equals(titleRegex)) {
                     res.add(getTitle(matcher.group(i)));
-                } else {
+                } else if(regex.equals(productUrlRegex)){
+                    res.add(getUrl(matcher.group(i)));
+                }
+                else {
                     res.add(matcher.group(i));
                 }
             }
@@ -127,6 +131,18 @@ public class UrlServices {
             result = unescapeHtml3(string1);
         }
         return result.substring(1, result.length()-1);
+    }
+
+    public static String getUrl(String text){
+        final String regex = ".*?(\\\".*?\\\").*?\\\".*?\\\".*?\\\".*?\\\".*?\\\".*?\\\".*?(\\\".*?\\\")";
+        String result = null;
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(text);
+        if (matcher.find()){
+            String string1=matcher.group(1);
+            result = unescapeHtml3(string1);
+        }
+        return siteUrlBase + result.substring(1, result.length()-1);
     }
 
     public static String unescapeHtml3( String str ) {
