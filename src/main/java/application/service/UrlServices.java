@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -63,9 +62,16 @@ public class UrlServices {
         List<Product> productList = new ArrayList<>();
         for(int i=0; i<productNameList.size() ; i++){
             String productName = productNameList.get(i);
-            String productPrice = productPriceList.size() > i ? productPriceList.get(i) : null;
-            String productUrl = productUrlList.size() > i ? productUrlList.get(i) : null;
-            String productImageUrl = productImageUrlList.size()>i ? productImageUrlList.get(i):null;
+            String productPrice;
+            if (productPriceList.size() > i) productPrice = productPriceList.get(i);
+            else productPrice = null;
+            String productUrl;
+            if (productUrlList.size() > i) productUrl = productUrlList.get(i);
+            else productUrl = null;
+            String productImageUrl;
+            if (productImageUrlList.size() > i) productImageUrl = productImageUrlList.get(i);
+            else productImageUrl = null;
+
             if(productPrice == null || productUrl == null)
                 break;
             Product product = new Product(productName, productPrice.trim().replace("$", ""), productUrl, productImageUrl);

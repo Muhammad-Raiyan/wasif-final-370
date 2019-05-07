@@ -31,7 +31,10 @@ public class Main extends Application {
         List<String> list = params.getRaw();
         CommandParser commandParser = new CommandParser();
         commandParser.parse(list);
-        primaryStage.show();
+
+        if(!commandParser.onlyProcess()){
+            primaryStage.show();
+        }
 
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("Exiting Application");

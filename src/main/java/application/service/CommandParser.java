@@ -1,5 +1,10 @@
 package application.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +24,11 @@ public class CommandParser {
 
     private Map<String, String> options;
 
+    List<String> inputItems;
+
     public CommandParser() {
         options = new HashMap<>();
+        inputItems = new ArrayList<>();
     }
 
     public void parse(List<String> args) throws IllegalArgumentException {
@@ -31,12 +39,67 @@ public class CommandParser {
                 throw new IllegalArgumentException("Not a valid argument " + args.get(i));
             }
         }
+        handleQueries();
     }
 
     private void handleQueries() {
+        if(options.containsKey("-i")){
+            handleInputFile();
+        }
+
+        if(options.containsKey("-o")){
+            handleOutputFile();
+        }
+    }
+
+    private void handleOutputFile() {
 
     }
 
+    private void handleInputFile() {
+        String inputFileName = options.get("-i");
+        File inputFile = null;
+        try {
+            inputFile = new File(inputFileName).getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Reading from file: " + inputFile);
+        assert inputFile != null;
+       inputItems =  getInputData(inputFile);
+        UrlServices urlServices = UrlServices.getInstance();
+        for(String item : inputItems){
+            urlServices.searchForItem(item);
+        }
+    }
+
+    public boolean onlyProcess(){
+        if(options.containsKey("-p")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static List<String> getInputData(File inputFile){
+        if(!inputFile.exists() || !inputFile.isFile()){
+            System.out.println("Error: Invalid input file");
+            System.exit(0);
+        }
+
+        List<String> inputData = new ArrayList<>();
+
+        try(BufferedReader br = new BufferedReader(new FileReader(inputFile))){
+            String st;
+            while((st = br.readLine()) != null){
+                inputData.add(st);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return inputData;
+    }
 
     public Map<String, String> getOptions() {
         return options;
