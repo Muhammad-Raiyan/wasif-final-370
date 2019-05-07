@@ -32,8 +32,9 @@ public class UrlServices {
     private UrlDao urlDao;
 
     private UrlServices(){
-        searchItemHistory = new HashMap<>();
+        System.out.println("UrlServices constructor called");
         urlDao = new UrlDao();
+        searchItemHistory = urlDao.initializeHistoryMap();
     }
 
     public static UrlServices getInstance(){
